@@ -148,3 +148,84 @@ if neighbor not in real_cost or tentative_cost < real_cost[neighbor]:
 ```
 
 A cada iteração, o algoritmo recalcula ambos os componentes e os combina, garantindo que sempre explore primeiro os nós mais promissores para encontrar o menor caminho no labirinto.
+
+### Funcionamento Passo a Passo
+
+1. **Inicialização:**
+   - Adiciona o nó inicial à lista de nós a visitar
+   - Define o custo real do nó inicial como 0
+
+2. **Loop Principal:**
+   - Seleciona o nó com **menor custo total estimado** da lista
+   - Se é o objetivo, reconstrói e retorna o caminho
+   - Marca o nó como visitado
+   - Explora todos os vizinhos (cima, baixo, esquerda, direita)
+
+3. **Para Cada Vizinho:**
+   - Ignora se já foi visitado ou é uma parede
+   - Calcula o novo custo tentativo (custo atual + 1)
+   - Se encontrou um caminho melhor:
+     - Atualiza o custo real do vizinho
+     - Atualiza o custo total estimado
+     - Registra de onde veio
+     - Adiciona à lista de nós a visitar
+
+4. **Reconstrução do Caminho:**
+   - Usa o dicionário `came_from` para voltar do objetivo até o início
+   - Reverte a lista para obter o caminho correto
+
+### Por Que o A* É Eficiente?
+
+- **Busca Direcionada**: A heurística guia a busca em direção ao objetivo
+- **Evita Caminhos Subótimos**: Sempre explora primeiro os caminhos mais promissores
+- **Memória de Custos**: Não reprocessa nós de forma ineficiente
+
+## Exemplos de Entrada e Saída
+
+### Exemplo 1: Labirinto Sem Solução
+
+**Entrada:**
+```python
+maze_without_solution = [
+    ['S', 0, 1, 0, 0],
+    [0, 0, 1, 0, 1],
+    [0, 1, 0, 0, 0],
+    [1, 0, 0, 'E', 1]
+]
+```
+
+**Representação Visual:**
+```
+S  0  |  0  0
+0  0  |  0  |
+0  |  0  0  0
+|  0  0  E  |
+
+Legenda: | = parede (1)
+```
+
+**Saída:**
+```
+=== Testando maze sem solução ===
+['*', 0, 1, 0, 0]
+[0, 0, 1, 0, 1]
+[0, 1, 0, 0, 0]
+[1, 0, 0, 'E', 1]
+
+['*', 0, 1, 0, 0]
+['*', 0, 1, 0, 1]
+[0, 1, 0, 0, 0]
+[1, 0, 0, 'E', 1]
+
+['*', '*', 1, 0, 0]
+[0, 0, 1, 0, 1]
+[0, 1, 0, 0, 0]
+[1, 0, 0, 'E', 1]
+
+... (explorando caminhos)
+
+No path found
+```
+
+O algoritmo explora todas as possibilidades e conclui que não há caminho possível devido às paredes bloqueando o acesso ao objetivo.
+
