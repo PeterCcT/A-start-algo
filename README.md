@@ -229,3 +229,87 @@ No path found
 
 O algoritmo explora todas as possibilidades e conclui que não há caminho possível devido às paredes bloqueando o acesso ao objetivo.
 
+### Exemplo 2: Labirinto Com Solução
+
+**Entrada:**
+```python
+maze_with_solution = [
+    ['S', 0, 0, 0, 0],
+    [1, 1, 0, 1, 0],
+    [0, 0, 0, 0, 0],
+    [0, 1, 1, 1, 0],
+    [0, 0, 0, 'E', 0]
+]
+```
+
+**Representação Visual:**
+```
+S  0  0  0  0
+|  |  0  |  0
+0  0  0  0  0
+0  |  |  |  0
+0  0  0  E  0
+```
+
+**Saída (Estados Intermediários):**
+```
+=== Testando maze com solução ===
+['*', 0, 0, 0, 0]
+[1, 1, 0, 1, 0]
+[0, 0, 0, 0, 0]
+[0, 1, 1, 1, 0]
+[0, 0, 0, 'E', 0]
+
+['*', '*', 0, 0, 0]
+[1, 1, 0, 1, 0]
+[0, 0, 0, 0, 0]
+[0, 1, 1, 1, 0]
+[0, 0, 0, 'E', 0]
+
+['*', '*', '*', 0, 0]
+[1, 1, 0, 1, 0]
+[0, 0, 0, 0, 0]
+[0, 1, 1, 1, 0]
+[0, 0, 0, 'E', 0]
+
+... (continuando a busca)
+
+['*', '*', '*', 0, 0]
+[1, 1, '*', 1, 0]
+[0, 0, '*', '*', '*']
+[0, 1, 1, 1, '*']
+[0, 0, 0, '*', '*']
+
+Founded path with 10 steps
+```
+
+**Caminho Final:**
+```
+Coordenadas: (0,0) → (0,1) → (0,2) → (1,2) → (2,2) → 
+             (2,3) → (2,4) → (3,4) → (4,4) → (4,3)
+             
+Total: 10 passos
+```
+
+## Estrutura do Código
+
+### Funções Principais
+
+- **`calculate_heuristic(node, goal)`**: Calcula a distância de Manhattan
+- **`get_neighbors(maze, node)`**: Retorna vizinhos válidos de um nó
+- **`find_shortest_maze_path(maze)`**: Implementação principal do A*
+- **`reconstruct_path(came_from, current)`**: Reconstrói o caminho final
+- **`print_maze_state(maze, path)`**: Visualiza o estado atual da busca
+
+## Complexidade
+
+- **Tempo**: O(n^k) no pior caso, onde n é o fator de ramificação e k é a profundidade
+- **Espaço**: O(n^k) para armazenar os nós na memória
+
+Na prática, com uma boa heurística, o A* é muito mais eficiente que busca cega.
+
+## Conclusão
+
+Esta implementação demonstra o poder do Algoritmo A* para problemas de busca de caminho. A combinação do custo real com a heurística de Manhattan permite encontrar soluções ótimas de forma eficiente, tornando-o ideal para aplicações em jogos, robótica, sistemas de navegação e planejamento de rotas.
+
+
